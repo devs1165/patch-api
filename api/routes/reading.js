@@ -26,13 +26,14 @@ router.post('/', (req,res,next) => {
         .then((result) => {
             res.status(200).json({
                 message : 'data stored successfully',
-                // data:result
+                sucess:true
             })
             
         })
         .catch((err) => {
             res.status(500).json({
-                error:err
+                error:err,
+		sucess:false
             })    
         });
     })
