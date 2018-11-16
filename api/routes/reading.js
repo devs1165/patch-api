@@ -23,19 +23,20 @@ router.post('/', (req,res,next) => {
         }
         console.log(obj)
         var reading = new Reading(obj);
-        // reading.save()
-        // .then((result) => {
-        //     res.status(200).json({
-        //         message : 'data stored successfully',
-        //         // data:result
-        //     })
+        reading.save()
+        .then((result) => {
+            res.status(200).json({
+                message : 'data stored successfully',
+                sucess:true
+            })
             
-        // })
-        // .catch((err) => {
-        //     res.status(500).json({
-        //         error:err
-        //     })    
-        // });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error:err,
+		sucess:false
+            })    
+        });
     })
 })
 
