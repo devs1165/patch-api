@@ -7,7 +7,7 @@ const Reading = require('../models/readinModel')
 // get all points
 router.post('/', (req,res,next) => {
     var data = req.body.data;
-    data.map((v,i) => {
+    data.map(function(v,i) {
         var obj = {
             pm25: v.pm25,
             pm1: v.pm1,
@@ -21,21 +21,22 @@ router.post('/', (req,res,next) => {
             savedAt:Date.now(),
             user:v.email
         }
-        console.log(obj)
         var reading = new Reading(obj);
         reading.save()
         .then((result) => {
-            res.status(200).json({
-                message : 'data stored successfully',
-                sucess:true
-            })
+            if(i == data.length - 1)
+                res.status(200).json({
+                    message : 'data stored successfully',
+                    sucess:true
+                })
             
         })
         .catch((err) => {
-            res.status(500).json({
-                error:err,
-		sucess:false
-            })    
+            if(i == data.length - 1)
+                res.status(500).json({
+                    error:err,
+                    sucess:false
+                })    
         });
     })
 })
